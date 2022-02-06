@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+  deepstack:
+    image: deepquestai/deepstack:gpu-2021.09.1
+    restart: unless-stopped
+    container_name: deepstack
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    ports:
+      - "5000:5000"
+    environment:
+      - VISION-FACE=True
+      - VISION-DETECTION=True
+      - VISION-SCENE=True
+      - API-KEY=auth_key
+    volumes:
+      - ./datastore:/datastore
+      - ./sharedfiles/face_lite.pt:/app/sharedfiles/face_lite.pt
+      - ./sharedfiles/face_lite.pt:/modelstore/detection/face_lite.pt
+      
+  deepstack_ui:
+    image: robmarkcole/deepstack-ui:latest
+    container_name: deepstack_ui
+    privileged: true
+    restart: always
+    ports:
+      - "8501:8501"
+    environment:
+      - DEEPSTACK_PORT=5000
+      - DEEPSTACK_API_KEY=auth_key
+      - DEEPSTACK_IP=192.168.0.211
+      - DEEPSTACK_TIMEOUT=20
+      - DEEPSTACK_CUSTOM_MODEL=face_lite
+  
+  lionstack_video_tagging:
+    build: video_tagging
+    container_name: lionstack_vt
+    restart: always
+    ports:
+      - "8502:8501"
+    volumes:
+      - ./training/videos:/videos
+

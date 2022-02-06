@@ -1,0 +1,9 @@
+deepstack-python==0.8
+matplotlib
+numpy
+pandas
+pillow
+PyYAML==5.4.1
+scipy
+streamlit
+av
