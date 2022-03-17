@@ -18,8 +18,10 @@ services:
       - API-KEY=auth_key
     volumes:
       - ./datastore:/datastore
-      - ./sharedfiles/face_lite.pt:/app/sharedfiles/face_lite.pt
+      #- ./sharedfiles/face_lite.pt:/app/sharedfiles/gpufiles/face_lite.pt
+      - ./sharedfiles/face_lite.pt:/app/sharedfiles/face.pt      
       - ./sharedfiles/face_lite.pt:/modelstore/detection/face_lite.pt
+      #- ./sharedfiles/face_lite.pt:/modelstore/detection/face.pt      
       
   deepstack_ui:
     image: robmarkcole/deepstack-ui:latest
@@ -34,6 +36,8 @@ services:
       - DEEPSTACK_IP=192.168.0.211
       - DEEPSTACK_TIMEOUT=20
       - DEEPSTACK_CUSTOM_MODEL=face_lite
+    volumes:
+      - ./demo/2021-7-13_IMG_0151_190.png:/app/faces.jpg
   
   lionstack_video_tagging:
     build: video_tagging
