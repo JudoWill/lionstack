@@ -109,7 +109,7 @@ def detect2rectangle(detect):
     
 MIN_COUNT = st.sidebar.slider('Min Frames', min_value = 1, max_value = 10, value = 3)
 PIXEL_DIST = st.sidebar.slider('PixelDist', min_value = 0, max_value = 500, step = 5,  value = 200, key='pixel')
-LOST_FRAMES = st.sidebar.slider('Lost Frames', min_value = 1, max_value = 10, step = 1,  value = 5, key='penalty')
+LOST_FRAMES = st.sidebar.slider('Lost Frames', min_value = 1, max_value = 1000, step = 10,  value = 5, key='penalty')
 
 
 
@@ -255,13 +255,13 @@ if st.button('Start'):
     holder = NodeHolder([])
     with st.form(key = 'form') as form:
         
-        for p, frame, img in stream:
+        for num, (p, frame, img) in enumerate(stream):
 
             draw_img = holder.process_img(img)
 
             holder.crop_nodes(img)
-
-            image_placeholder.image(img)
+            if num % 6 == 0:
+                image_placeholder.image(img)
         
         
         

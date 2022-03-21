@@ -36,8 +36,8 @@ services:
       - DEEPSTACK_IP=192.168.0.211
       - DEEPSTACK_TIMEOUT=20
       - DEEPSTACK_CUSTOM_MODEL=face_lite
-    volumes:
-      - ./demo/2021-7-13_IMG_0151_190.png:/app/faces.jpg
+    #volumes:
+    #  - ./demo/2021-7-13_IMG_0151_190.png:/app/faces.jpg
   
   lionstack_video_tagging:
     build: video_tagging
